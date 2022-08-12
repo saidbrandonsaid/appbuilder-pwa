@@ -14,6 +14,8 @@ TODO:
     import { audioHighlight, refs, scrolls, audioActive, mainScroll } from '$lib/data/stores';
     import { renderDoc } from '../scripts/render';
     import { LoadingIcon } from '../icons';
+    import Footnote from './Footnote.svelte';
+    import { clickOutside } from '../scripts/click_outside';
 
     let container: HTMLElement;
     let bookRoot: Element;
@@ -87,8 +89,14 @@ TODO:
 
     onDestroy(unSub);
 
+    let fType = '';
+    let fContent = '';
+    let fVisible = false;
     const showFootnote = (type: string, content: string) => {
         console.log(`${type}: ${content}`);
+        fType = type;
+        fContent = content;
+        fVisible = true;
     };
 
     let loading = true;
@@ -169,3 +177,28 @@ TODO:
     {/if}
     <div bind:this={bookRoot} class:hidden={loading} />
 </article>
+
+{#if fVisible}
+    <div
+        use:clickOutside
+        on:outclick={() => (fVisible = false)}
+        class="fnote-wrapper bg-base-100 shadow-sm"
+    >
+        <Footnote type={fType} content={fContent} />
+    </div>
+{/if}
+
+<style>
+    .fnote-wrapper {
+        /*check this later for help: https://stackoverflow.com/questions/6794000/fixed-position-but-relative-to-container*/
+        height: 30vh;
+        z-index: 1;
+        position: fixed;
+        right: 5vh;
+        bottom: 5%;
+        min-width: 50vh;
+        max-width: 90vh;
+        overflow-y: auto;
+        padding: 10px;
+    }
+</style>
