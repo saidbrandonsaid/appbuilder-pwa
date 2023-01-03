@@ -12,6 +12,7 @@
     import config from '$lib/data/config';
 
     const showSearch = config.mainFeatures['search'];
+    import ScriptureViewSofria from '$lib/components/ScriptureViewSofria.svelte';
 </script>
 
 <div class="navbar">
@@ -50,7 +51,7 @@
 </div>
 <ScrolledContent>
     <div class={$refs.hasAudio && $audioActive ? 'smaller' : 'larger'} slot="scrolled-content">
-        <ScriptureView />
+        <ScriptureViewSofria />
     </div>
 </ScrolledContent>
 {#if $refs.hasAudio && $audioActive}
