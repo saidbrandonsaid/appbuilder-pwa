@@ -26,9 +26,7 @@
     const showCollections = config.bookCollections.length > 1;
     const showAudio = config.mainFeatures['audio-allow-turn-on-off'];
     $: contentClass =
-        $selectedVerses.length > 0
-            ? 'content-selected'
-            : $refs.hasAudio && $audioActive
+        $refs.hasAudio && $audioActive
             ? $refs.hasAudio.timingFile
                 ? 'content-with-bar'
                 : 'content-with-bar-progress'
@@ -98,10 +96,6 @@
         height: 4rem;
     }
     /*shrink to accomodate the audio bar*/
-    .content-selected {
-        height: calc(100vh - 7rem);
-        height: calc(100dvh - 7rem);
-    }
     .content-with-bar-progress {
         height: calc(100vh - 10rem);
         height: calc(100dvh - 10rem);
